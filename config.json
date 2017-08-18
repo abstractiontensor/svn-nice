@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "infile": "svn-status-example.txt",
+  "outfile": "./report.html",
+  "format": {
+    "Widths, height, html properties etc":
+    "The dragons be there"
+  },
+  "parse": {
+    "columns": {
+      "1": "Actions",
+      "2": "Props modifications",
+      "3": "Locked",
+      "4": "Scheduled commit will create a copy",
+      "5": "Switched or a file external",
+      "6": "Locked for exclusive commit",
+      "7": "Victim of a tree conflict",
+      "8": "Conflict issue",
+      "9": "Out-of-date information",
+      "10": "Working rev",
+      "11":"Last committed revision",
+      "12":"Commit author",
+      "13": "Path"
+    },
+    "charcolumns": 9,
+    "conflictcol": 7,
+    "data": {
+      "1": {
+        " ": "No modifications",
+        "A": "Added",
+        "C": "Conflicted",
+        "D": "Deleted",
+        "I": "Ignored",
+        "M": "Modified",
+        "R": "Replaced",
+        "X": "Unversioned",
+        "?": "No SVN",
+        "!": "Missing",
+        "~": "Obstructed"
+      },
+      "2": {
+        " ": "No modifications",
+        "C": "Conflicted",
+        "M": "Modified"
+      },
+      "3": {
+        " ": "Non-locked for writing",
+        "L": "Locked for writing"
+      },
+      "4": {
+        " ": "No committed",
+        "+": "Committed"
+      },
+      "5": {
+        " ": "Normal",
+        "S": "Switched URL relative to the parent",
+        "X": "Versioned file created by an eXternals definition"
+      },
+      "6": {
+        " ": "Not locked by this working copy",
+        "K": "Locked in repository, lock owned by this working copy",
+        "O": "Locked in repository, lock owned by another working copy",
+        "T": "Locked in repository, lock owned by this working copy was stolen",
+        "B": "Not locked in repository, lock owned by this working copy is broken"
+      },
+      "7": {
+        " ": "Normal",
+        "C": "Tree-Conflicted"
+      },
+      "8": {
+        " ": " "
+      },
+      "9": {
+        "*": "Newer revision exists on the server",
+        " ": "Working copy is up to date"
+      }
+    }
+  }
+}

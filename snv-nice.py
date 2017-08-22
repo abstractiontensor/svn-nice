@@ -7,18 +7,47 @@ class ReportHTML:
     __charset = 'utf-8'
     __title = 'Report'
     __title_rows = 0
+    __stylesStr = ""
 
-    def __init__( self, fileName, charset='utf-8', title='' ):
+    def __init__(self, fileName, charset='utf-8', title='', styles={} ):
         self.__charset = charset
         self.__reportFile = open(fileName, "w")
         self.__title = title
+        self.__parseStyles(styles)
+
+    #
+    def __parseStyles(self, styles):
+        """Transforms dict to CSS like:
+        {abc: {1: "width: 40px", 2: "width: 50px", ...}, etc}
+        to
+        #abc1: "width: 40px",
+        #abc2: "width: 50px"
+
+        """
+
+        self.__stylesStr=""
+        for k1 in styles.keys():
+            try:
+                for k2 in styles[k1].keys():
+                    try:
+                        addstylesStr = "#" + k1 + k2 + " {\n"
+                        for k3 in styles[k1][k2].keys():
+                            addstylesStr+= "  " + k3 + ": "\
+                                           + styles[k1][k2][k3] + ";\n"
+                        addstylesStr+= "}\n"
+                    except:
+                        continue
+                    self.__stylesStr += addstylesStr
+            except:
+                continue
 
     def printHTMLRaw(self, text):
         self.__reportFile.write(text)
 
     def printHTMLHead(self, title="Report"):
-        html_text = '<html>\n<head>\n<title>' + self.__title + '</title>\n'\
-            '</head>\n<body>\n'
+        html_text = '<html>\n<head>\n<title>' + self.__title + '</title>\n'
+        html_text+= '<style>\n' + self.__stylesStr + '</style>\n'
+        html_text+= '</head>\n<body>\n'
         self.__reportFile.write(html_text)
 
     def printHTMLTail(self, title="Report"):
@@ -32,8 +61,12 @@ class ReportHTML:
     def printNewTable(self, columnTitles ):
         html_text = '<table>\n<tr>\n'
         self.__title_rows = len(columnTitles)
+
+        idth=0
         for col_title in columnTitles:
-            html_text += "<th>" + col_title + "</th>"
+            idth+=1;
+            html_text += "<th id=th" + str(idth) + ">" + col_title + "</th>"
+
         html_text += '</tr>'
         self.__reportFile.write(html_text)
 
@@ -50,6 +83,7 @@ class ReportHTML:
         html_text += "</tr>"
         self.__reportFile.write(html_text)
 
+# And then I recognized to had to use Django Framework...
 
 # Main
 
@@ -71,7 +105,7 @@ dataRegex = re.compile('\s*(\d*|-)\s+(\d*)\s+(.+)\s+(.+)$')
 
 # Starting making the report
 report = ReportHTML(config["outfile"], title='Subversion report at ' +
-                    str(datetime.datetime.now()))
+                    str(datetime.datetime.now()), styles=config["format"])
 report.printHTMLHead()
 report.printHTMLHeader()
 report.printNewTable(config["parse"]["columns"].values())

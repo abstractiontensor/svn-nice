@@ -3,8 +3,43 @@
   "infile": "svn-status-example.txt",
   "outfile": "./report.html",
   "format": {
-    "Widths, height, html properties etc":
-    "The dragons be there"
+    "th": {
+      "1": {
+        "width": "100px"
+      },
+      "2": {
+        "width": "100px"
+      },
+      "3": {
+        "width": "100px"
+      },
+      "4": {
+        "width": "100px"
+      },
+      "5": {
+        "width": "100px"
+      },
+      "6": "",
+      "7": {
+        "width": "100px"
+      },
+      "8": "",
+      "9": "",
+      "10": {
+        "width": "50px"
+      },
+      "11":{
+        "width": "50px"
+      },
+      "12":"",
+      "13": {
+        "width": "500px",
+        "color": "blue"
+      }
+    },
+    "table": {
+      "": ""
+    }
   },
   "parse": {
     "columns": {
